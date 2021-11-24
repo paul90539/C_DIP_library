@@ -1,1 +1,1 @@
-# C_DIP_library
+# C_Digital_Image_Processing_Library
