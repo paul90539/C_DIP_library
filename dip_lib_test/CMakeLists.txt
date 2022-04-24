@@ -1,5 +1,5 @@
 
-include(../fp_config.cmake)
+include(../dip_config.cmake)
 
 set(DIP_LIB_TEST_NAME dip_lib_test)
 
