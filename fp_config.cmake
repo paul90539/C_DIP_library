@@ -5,6 +5,9 @@ set( dir_core              ${CMAKE_CURRENT_SOURCE_DIR}/../module/core)
 #set dir_algorithm
 set( dir_algorithm         ${CMAKE_CURRENT_SOURCE_DIR}/../module/algorithm)
 
+#set dir_file
+set( dir_file              ${CMAKE_CURRENT_SOURCE_DIR}/../module/file)
+
 #set dir_dip_lib_test
 set( dir_dip_lib_test      ${CMAKE_CURRENT_SOURCE_DIR}/../dip_lib_test)    
 
@@ -22,6 +25,12 @@ foreach( dir ${dir_algorithm} )
     set( inc_algorithm ${inc_algorithm} ${CURRENT_HEADERS} )
 endforeach()
 
+#set dir_file
+foreach( dir ${dir_file} )
+    aux_source_directory( ${dir}/src src_file )
+    file(GLOB_RECURSE CURRENT_HEADERS  ${dir}/inc/*.h  ${dir}/inc/*.hpp)
+    set( inc_file ${inc_file} ${CURRENT_HEADERS} )
+endforeach()
 
 #set src_dip_lib_test
 foreach( dir ${dir_dip_lib_test} )
@@ -40,16 +49,21 @@ source_group( "Source Files\\core" FILES ${src_core})
 source_group("Include Files\\alg" FILES ${inc_algorithm})
 source_group( "Source Files\\alg" FILES ${src_algorithm})
 
+source_group("Include Files\\file" FILES ${inc_file})
+source_group( "Source Files\\file" FILES ${src_file})
+
 source_group("Include Files" FILES ${inc_dip_lib_test})
 source_group( "Source Files" FILES ${src_dip_lib_test})
 
-add_executable(${name}  ${inc_core} ${src_core} 
+add_executable(${name}  ${inc_core} ${src_core}
+                        ${inc_file} ${src_file}
                         ${inc_algorithm}  ${src_algorithm}
                         ${inc_dip_lib_test} ${src_dip_lib_test}  )
 
 target_compile_definitions(${name} PRIVATE _FTS_ALGO)
 target_include_directories(${name} PRIVATE 
          ${dir_core}/inc
+         ${dir_file}/inc
          ${dir_algorithm}/inc
          ${dir_dip_lib_test}/inc
     )
